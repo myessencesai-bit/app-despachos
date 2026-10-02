@@ -1,0 +1,5 @@
+max_unidades;largo_cm;ancho_cm;alto_cm;peso_embalaje_kg;costo_embalaje;nota
+2;22;16;12;0.20;500;Caja chica (1-2 perf) + burbuja
+6;28;22;18;0.35;800;Caja mediana (3-6 perf) + burbuja
+12;38;28;22;0.50;1200;Caja grande (7-12 perf) + burbuja
+24;48;38;28;0.80;1800;Caja XL (13-24 perf) + burbuja

@@ -1,0 +1,35 @@
+﻿region,tipo_servicio,xs,s,m,l,xl
+Arica y Parinacota,domicilio,7150,8300,12400,17000,25000
+Tarapacá,domicilio,6550,7400,10700,15500,23000
+Antofagasta,domicilio,6300,7000,9900,14000,21000
+Atacama,domicilio,4850,5900,7700,9900,13800
+Coquimbo,domicilio,4600,5300,7000,9600,12800
+Valparaíso,domicilio,3900,4500,6000,7700,9700
+Metropolitana de Santiago,domicilio,3100,3650,4700,5700,7600
+Libertador General Bernardo O'Higgins,domicilio,4000,4800,6400,8300,11300
+Maule,domicilio,4200,5200,6700,8900,12100
+Ñuble,domicilio,4600,5400,7200,9200,12600
+Bío - Bío,domicilio,4700,5700,7300,9500,12800
+Araucanía,domicilio,4950,5900,7700,9900,13800
+Los Ríos,domicilio,5300,6100,8300,10000,14200
+Los Lagos,domicilio,5300,6100,8300,10000,14200
+Aysén,domicilio,8000,9500,14000,21500,28500
+Magallanes y la Antártica Chilena,domicilio,8000,9500,14000,21500,28500
+Misma Región,domicilio,3100,3650,4700,5700,7600
+Arica y Parinacota,punto,6350,7500,11600,16200,24200
+Tarapacá,punto,5750,6600,9900,14700,22200
+Antofagasta,punto,5500,6200,9100,13200,20200
+Atacama,punto,4050,5100,6900,9100,13000
+Coquimbo,punto,3800,4500,6200,8800,12000
+Valparaíso,punto,3100,3700,5200,6900,8900
+Metropolitana de Santiago,punto,2300,2850,3900,4900,6800
+Libertador General Bernardo O'Higgins,punto,3200,4000,5600,7500,10500
+Maule,punto,3400,4400,5900,8100,11300
+Ñuble,punto,3800,4600,6400,8400,11800
+Bío - Bío,punto,3900,4900,6500,8700,12000
+Araucanía,punto,4150,5100,6900,9100,13000
+Los Ríos,punto,4500,5300,7500,9200,13400
+Los Lagos,punto,4500,5300,7500,9200,13400
+Aysén,punto,7200,8700,13200,20700,27700
+Magallanes y la Antártica Chilena,punto,7200,8700,13200,20700,27700
+Misma Región,punto,2300,2850,3900,4900,6800
