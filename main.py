@@ -461,3 +461,128 @@ async def customers_redact(request: Request):
 @app.post("/webhooks/customers-data-request")
 async def customers_data_request(request: Request):
     return await _webhook(request)
+
+
+# ------------------------------------------------- Cola Webhooks Órdenes -> ERP
+import json
+import sqlite3
+
+WH_DB_PATH = os.getenv("WH_DB_PATH", "/tmp/adp_webhooks_queue.db")
+SYNC_API_KEY = os.getenv("SYNC_API_KEY", "").strip() or hashlib.sha256((CLIENT_SECRET + ":adp-sync").encode()).hexdigest()[:32]
+
+def _wh_db():
+    conn = sqlite3.connect(WH_DB_PATH, timeout=10.0)
+    conn.row_factory = sqlite3.Row
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS webhook_events_queue (
+            id_evento TEXT PRIMARY KEY,
+            evento TEXT NOT NULL,
+            store_id TEXT DEFAULT '',
+            orden_id_externa TEXT DEFAULT '',
+            fecha_recepcion_iso TEXT NOT NULL,
+            hmac_valido INTEGER NOT NULL DEFAULT 1,
+            payload_json TEXT NOT NULL,
+            sincronizado INTEGER NOT NULL DEFAULT 0,
+            sincronizado_at TEXT DEFAULT ''
+        )
+    """)
+    conn.commit()
+    return conn
+
+def _validar_sync_key(request: Request):
+    key = (request.headers.get("x-sync-key") or "").strip()
+    if not key or not hmac.compare_digest(key, SYNC_API_KEY):
+        raise HTTPException(status_code=401, detail="X-Sync-Key inválida")
+
+async def _suscribir_webhooks_tn(client: httpx.AsyncClient, store_id: str, access_token: str):
+    if not PUBLIC_URL or not store_id or not access_token:
+        return []
+    headers = {
+        "Authentication": f"bearer {access_token}",
+        "Content-Type": "application/json",
+        "User-Agent": "Aromas App (contacto@aromasdelpacifico.cl)",
+    }
+    wh_url = f"{API_BASE}/{store_id}/webhooks"
+    target = f"{PUBLIC_URL}/webhooks/tiendanube"
+    eventos_deseados = ["order/created", "order/paid", "order/fulfilled", "order/cancelled"]
+    existentes = []
+    r_get = await client.get(wh_url, headers=headers)
+    if r_get.status_code == 200:
+        existentes = r_get.json()
+    registrados = []
+    for ev in eventos_deseados:
+        ya = next((w for w in existentes if w.get("event") == ev and w.get("url") == target), None)
+        if ya:
+            registrados.append({"event": ev, "id": ya.get("id"), "status": "existente"})
+            continue
+        r_post = await client.post(wh_url, json={"event": ev, "url": target}, headers=headers)
+        registrados.append({"event": ev, "status": r_post.status_code, "resp": r_post.text[:160]})
+    return registrados
+
+@app.post("/webhooks/tiendanube")
+async def recibir_webhook_tiendanube(request: Request):
+    raw = await request.body()
+    firma = request.headers.get("x-linkedstore-hmac-sha256") or ""
+    if CLIENT_SECRET and not firma_valida(raw, firma):
+        raise HTTPException(status_code=401, detail="Firma HMAC inválida")
+    try:
+        data = json.loads(raw.decode("utf-8"))
+    except Exception:
+        raise HTTPException(status_code=400, detail="JSON inválido")
+
+    evento = str(data.get("event") or request.headers.get("x-linkedstore-topic") or "order/unknown")
+    store_id = str(data.get("store_id") or "")
+    orden_id = str(data.get("id") or data.get("order_id") or "")
+    ahora_iso = datetime.now(TZ).isoformat()
+    id_evento = hashlib.sha256(f"{store_id}:{evento}:{orden_id}:{raw.decode('utf-8', 'ignore')}".encode()).hexdigest()[:28]
+
+    conn = _wh_db()
+    conn.execute("""
+        INSERT OR IGNORE INTO webhook_events_queue
+        (id_evento, evento, store_id, orden_id_externa, fecha_recepcion_iso, hmac_valido, payload_json, sincronizado)
+        VALUES (?, ?, ?, ?, ?, 1, ?, 0)
+    """, (id_evento, evento, store_id, orden_id, ahora_iso, json.dumps(data, ensure_ascii=False)))
+    conn.commit()
+    conn.close()
+    return {"ok": True, "id_evento": id_evento, "evento": evento, "orden_id": orden_id}
+
+@app.get("/webhooks/pendientes")
+def listar_webhooks_pendientes(request: Request, limit: int = 100):
+    _validar_sync_key(request)
+    conn = _wh_db()
+    rows = conn.execute("""
+        SELECT id_evento, evento, store_id, orden_id_externa, fecha_recepcion_iso, hmac_valido, payload_json
+        FROM webhook_events_queue
+        WHERE sincronizado = 0
+        ORDER BY fecha_recepcion_iso ASC
+        LIMIT ?
+    """, (max(1, min(limit, 500)),)).fetchall()
+    conn.close()
+    return {"ok": True, "total": len(rows), "eventos": [dict(r) for r in rows]}
+
+@app.post("/webhooks/ack")
+async def confirmar_webhooks_sincronizados(request: Request):
+    _validar_sync_key(request)
+    body = await request.json()
+    ids = [str(x) for x in (body.get("ids") or []) if x]
+    if not ids:
+        return {"ok": True, "confirmados": 0}
+    conn = _wh_db()
+    ahora_iso = datetime.now(TZ).isoformat()
+    qmarks = ",".join("?" for _ in ids)
+    conn.execute(f"UPDATE webhook_events_queue SET sincronizado = 1, sincronizado_at = ? WHERE id_evento IN ({qmarks})", [ahora_iso, *ids])
+    conn.commit()
+    conn.close()
+    return {"ok": True, "confirmados": len(ids)}
+
+@app.post("/webhooks/registrar")
+async def endpoint_registrar_webhooks(request: Request):
+    _validar_sync_key(request)
+    body = await request.json()
+    store_id = str(body.get("store_id") or "").strip()
+    access_token = str(body.get("access_token") or "").strip()
+    if not store_id or not access_token:
+        raise HTTPException(status_code=400, detail="Falta store_id o access_token")
+    async with httpx.AsyncClient(timeout=15) as client:
+        res = await _suscribir_webhooks_tn(client, store_id, access_token)
+    return {"ok": True, "webhook_url": f"{PUBLIC_URL}/webhooks/tiendanube", "resultados": res}
