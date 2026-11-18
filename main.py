@@ -344,7 +344,14 @@ async def auth_callback(code: str):
             if opt_res.status_code >= 400:
                 raise HTTPException(status_code=502, detail=f"No se pudo crear la opción {code}: {opt_res.text}")
 
-    return {"mensaje": "Aplicación instalada, carrier y opciones de envío registrados", "store_id": store_id}
+        wh_res = await _suscribir_webhooks_tn(client, str(store_id), access_token)
+
+    return {
+        "mensaje": "Aplicación instalada, carrier y webhooks registrados",
+        "store_id": store_id,
+        "access_token": access_token,
+        "webhooks": wh_res
+    }
 
 
 # (servicio en el CSV, code de la opción, nombre visible, tarifa por defecto, exige teléfono)
