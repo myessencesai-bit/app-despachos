@@ -1,35 +1,69 @@
-﻿region,tipo_servicio,xs,s,m,l,xl
-Arica y Parinacota,domicilio,7150,8300,12400,17000,25000
-Tarapacá,domicilio,6550,7400,10700,15500,23000
-Antofagasta,domicilio,6300,7000,9900,14000,21000
-Atacama,domicilio,4850,5900,7700,9900,13800
-Coquimbo,domicilio,4600,5300,7000,9600,12800
-Valparaíso,domicilio,3900,4500,6000,7700,9700
-Metropolitana de Santiago,domicilio,3100,3650,4700,5700,7600
-Libertador General Bernardo O'Higgins,domicilio,4000,4800,6400,8300,11300
-Maule,domicilio,4200,5200,6700,8900,12100
-Ñuble,domicilio,4600,5400,7200,9200,12600
-Bío - Bío,domicilio,4700,5700,7300,9500,12800
-Araucanía,domicilio,4950,5900,7700,9900,13800
-Los Ríos,domicilio,5300,6100,8300,10000,14200
-Los Lagos,domicilio,5300,6100,8300,10000,14200
-Aysén,domicilio,8000,9500,14000,21500,28500
-Magallanes y la Antártica Chilena,domicilio,8000,9500,14000,21500,28500
-Misma Región,domicilio,3100,3650,4700,5700,7600
-Arica y Parinacota,punto,6350,7500,11600,16200,24200
-Tarapacá,punto,5750,6600,9900,14700,22200
-Antofagasta,punto,5500,6200,9100,13200,20200
-Atacama,punto,4050,5100,6900,9100,13000
-Coquimbo,punto,3800,4500,6200,8800,12000
-Valparaíso,punto,3100,3700,5200,6900,8900
-Metropolitana de Santiago,punto,2300,2850,3900,4900,6800
-Libertador General Bernardo O'Higgins,punto,3200,4000,5600,7500,10500
-Maule,punto,3400,4400,5900,8100,11300
-Ñuble,punto,3800,4600,6400,8400,11800
-Bío - Bío,punto,3900,4900,6500,8700,12000
-Araucanía,punto,4150,5100,6900,9100,13000
-Los Ríos,punto,4500,5300,7500,9200,13400
-Los Lagos,punto,4500,5300,7500,9200,13400
-Aysén,punto,7200,8700,13200,20700,27700
-Magallanes y la Antártica Chilena,punto,7200,8700,13200,20700,27700
-Misma Región,punto,2300,2850,3900,4900,6800
+﻿courier,region,tipo_servicio,xs,s,m,l,xl
+blue_express,Arica y Parinacota,domicilio,7150,8300,12400,17000,25000
+blue_express,Tarapacá,domicilio,6550,7400,10700,15500,23000
+blue_express,Antofagasta,domicilio,6300,7000,9900,14000,21000
+blue_express,Atacama,domicilio,4850,5900,7700,9900,13800
+blue_express,Coquimbo,domicilio,4600,5300,7000,9600,12800
+blue_express,Valparaíso,domicilio,3900,4500,6000,7700,9700
+blue_express,Metropolitana de Santiago,domicilio,3100,3650,4700,5700,7600
+blue_express,Libertador General Bernardo O'Higgins,domicilio,4000,4800,6400,8300,11300
+blue_express,Maule,domicilio,4200,5200,6700,8900,12100
+blue_express,Ñuble,domicilio,4600,5400,7200,9200,12600
+blue_express,Bío - Bío,domicilio,4700,5700,7300,9500,12800
+blue_express,Araucanía,domicilio,4950,5900,7700,9900,13800
+blue_express,Los Ríos,domicilio,5300,6100,8300,10000,14200
+blue_express,Los Lagos,domicilio,5300,6100,8300,10000,14200
+blue_express,Aysén,domicilio,8000,9500,14000,21500,28500
+blue_express,Magallanes y la Antártica Chilena,domicilio,8000,9500,14000,21500,28500
+blue_express,Misma Región,domicilio,3100,3650,4700,5700,7600
+blue_express,Arica y Parinacota,punto,6350,7500,11600,16200,24200
+blue_express,Tarapacá,punto,5750,6600,9900,14700,22200
+blue_express,Antofagasta,punto,5500,6200,9100,13200,20200
+blue_express,Atacama,punto,4050,5100,6900,9100,13000
+blue_express,Coquimbo,punto,3800,4500,6200,8800,12000
+blue_express,Valparaíso,punto,3100,3700,5200,6900,8900
+blue_express,Metropolitana de Santiago,punto,2300,2850,3900,4900,6800
+blue_express,Libertador General Bernardo O'Higgins,punto,3200,4000,5600,7500,10500
+blue_express,Maule,punto,3400,4400,5900,8100,11300
+blue_express,Ñuble,punto,3800,4600,6400,8400,11800
+blue_express,Bío - Bío,punto,3900,4900,6500,8700,12000
+blue_express,Araucanía,punto,4150,5100,6900,9100,13000
+blue_express,Los Ríos,punto,4500,5300,7500,9200,13400
+blue_express,Los Lagos,punto,4500,5300,7500,9200,13400
+blue_express,Aysén,punto,7200,8700,13200,20700,27700
+blue_express,Magallanes y la Antártica Chilena,punto,7200,8700,13200,20700,27700
+blue_express,Misma Región,punto,2300,2850,3900,4900,6800
+starken,Arica y Parinacota,domicilio,7400,8800,13200,18500,26900
+starken,Tarapacá,domicilio,6800,7900,11500,16800,24800
+starken,Antofagasta,domicilio,6500,7500,10600,15200,22600
+starken,Atacama,domicilio,5100,6200,8200,10800,15000
+starken,Coquimbo,domicilio,4800,5600,7400,10200,13800
+starken,Valparaíso,domicilio,4100,4800,6400,8300,10600
+starken,Metropolitana de Santiago,domicilio,3400,4000,5200,6400,8500
+starken,Libertador General Bernardo O'Higgins,domicilio,4200,5100,6800,8900,12100
+starken,Maule,domicilio,4500,5500,7200,9500,13000
+starken,Ñuble,domicilio,4800,5800,7700,9900,13500
+starken,Bío - Bío,domicilio,4950,6000,7900,10200,13800
+starken,Araucanía,domicilio,5200,6300,8300,10800,14800
+starken,Los Ríos,domicilio,5600,6600,8900,11200,15400
+starken,Los Lagos,domicilio,5600,6600,8900,11200,15400
+starken,Aysén,domicilio,8500,10200,15200,23000,30500
+starken,Magallanes y la Antártica Chilena,domicilio,8500,10200,15200,23000,30500
+starken,Misma Región,domicilio,3400,4000,5200,6400,8500
+starken,Arica y Parinacota,agencia,6600,8000,12400,17500,25900
+starken,Tarapacá,agencia,6000,7100,10700,15800,23800
+starken,Antofagasta,agencia,5700,6700,9800,14200,21600
+starken,Atacama,agencia,4300,5400,7400,9800,14000
+starken,Coquimbo,agencia,4000,4800,6600,9200,12800
+starken,Valparaíso,agencia,3300,4000,5600,7500,9800
+starken,Metropolitana de Santiago,agencia,2600,3200,4400,5600,7700
+starken,Libertador General Bernardo O'Higgins,agencia,3400,4300,6000,8100,11300
+starken,Maule,agencia,3700,4700,6400,8700,12200
+starken,Ñuble,agencia,4000,5000,6900,9100,12700
+starken,Bío - Bío,agencia,4150,5200,7100,9400,13000
+starken,Araucanía,agencia,4400,5500,7500,9900,13900
+starken,Los Ríos,agencia,4800,5800,8100,10300,14500
+starken,Los Lagos,agencia,4800,5800,8100,10300,14500
+starken,Aysén,agencia,7700,9400,14400,22000,29500
+starken,Magallanes y la Antártica Chilena,agencia,7700,9400,14400,22000,29500
+starken,Misma Región,agencia,2600,3200,4400,5600,7700
